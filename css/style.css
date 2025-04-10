@@ -1,0 +1,83 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, black, #000740);
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+body.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, black, #000740);
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+body.simulator {
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  color: #00c8ff;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  margin: 0;
+}
+
+.btn-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.btn {
+  background-color: transparent;
+  border: 2px solid #00c8ff;
+  color: #00c8ff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #00c8ff;
+  color: black;
+}
+
+#unity-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#unity-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#unity-footer,
+#unity-loading-bar,
+#unity-warning {
+  display: none;
+}
