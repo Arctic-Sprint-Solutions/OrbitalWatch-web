@@ -15,3 +15,4 @@ Thumbs.db
 # Any specific log or temporary files your workflow might generate
 *.log
 tmp/
+.vercel
