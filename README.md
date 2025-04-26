@@ -6,6 +6,10 @@ A web-based space collision simulation application built with Unity WebGL.
 
 Orbital Watch is an interactive web application that allows users to visualize simple collisions between satellites and space debris and learn more about the issue of space debris. The application combines a Unity-based collision simulator with a web interface for easy access.
 
+## Live Application
+
+You can access the live application here: [Orbital Watch](https://orbital-watch-web.vercel.app/)
+
 ## Setup Instructions
 
 ### Prerequisites
