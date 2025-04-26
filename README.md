@@ -78,12 +78,44 @@ For successful deployment to Vercel:
 
 ## Project Structure
 
-- `index.html` - Landing page
-- `unity-app.html` - The Unity WebGL application page
-- `js/app.js` - JavaScript for loading and configuring the Unity WebGL content
-- `css/style.css` - Stylesheet for the web interface
-- `Build/` - Contains the Unity WebGL build files
-- `build-and-deploy.sh` - Script to automate building and deployment
+- `index.html` - Landing page with the main entry point to the application
+- `unity-app.html` - The Unity WebGL application page that embeds the simulation
+- `js/app.js` - JavaScript for loading and configuring the Unity WebGL content, handles canvas setup and Unity instance creation
+- `css/style.css` - Stylesheet for the web interface with custom styling for both landing page and simulator
+- `Build/` - Contains the Unity WebGL build files (webgl-dist.* files)
+- `TemplateData/` - Contains Unity WebGL template assets like loading bar styles, logos, and other UI elements
+- `build-and-deploy.sh` - Bash script to automate building from Unity and deployment to Vercel
+- `vercel.json` - Configuration file for Vercel deployment settings (routes, headers, etc.)
+- `.config.env` - Environment configuration file with paths to Unity executable and Unity project location
+
+## Unity WebGL Integration
+
+The project uses a Unity WebGL build that's referenced in `app.js`. Important aspects of this integration:
+
+1. The Unity build files must be named with the `webgl-dist` prefix as specified in `app.js`
+2. The canvas in `unity-app.html` is configured to display the Unity WebGL content
+3. The loading process includes a progress bar that updates as the Unity content loads
+4. Responsive design adjustments are made based on device type (mobile vs desktop)
+
+## Deployment Workflow
+
+### .vercel Configuration
+
+The `.vercel` directory contains crucial deployment configuration that must be properly set up:
+
+- `project.json` - Links the project to your Vercel account and project
+- Configuration for build settings and environment variables
+
+When first setting up the project, you need to run `vercel link` to create this configuration or ensure it's properly configured if cloning an existing project.
+
+### Build Process Automation
+
+The `build-and-deploy.sh` script provides several features:
+
+- Automated Unity builds using command-line parameters
+- Copying only the necessary build files to the web project
+- Configurable paths through `.config.env`
+- Optional deployment to Vercel production environment
 
 ## Development Notes
 
