@@ -80,10 +80,6 @@ if [ "$BUILD" = true ]; then
   echo "✅ Unity build complete."
 
   # Copy the WebGL build from the Unity project to the Vercel folder
-  #echo "📦 Copying WebGL build (Build folder only) to Vercel project folder..."
-  #rsync -av --delete "$UNITY_PROJECT_PATH/webgl-dist/Build/" "$VERCEL_SITE_PATH/Build/"
-
-  # Copy the WebGL build from the Unity project to the Vercel folder
   echo "📦 Copying WebGL build (Build folder and StreamingAssets) to Vercel project folder..."
   rsync -av --delete "$UNITY_PROJECT_PATH/webgl-dist/Build/" "$VERCEL_SITE_PATH/Build/"
 

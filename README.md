@@ -10,7 +10,44 @@ Orbital Watch is an interactive web application that allows users to visualize s
 
 You can access the live application here: [Orbital Watch](https://orbital-watch-web.vercel.app/)
 
-## Setup Instructions
+## Getting Started
+
+### Clone and Setup
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/orbital-watch-web.git
+   cd orbital-watch-web
+   ```
+2. Ensure you have the Unity WebGL build files in the `Build` directory (see Development section for build instructions)
+
+## Running Locally with Docker
+
+The project includes a simple `docker-compose.yml` file with a basic Nginx configuration to serve the application locally in a Docker container.
+
+### Prerequisites
+- [Docker](https://www.docker.com/products/docker-desktop/) installed on your system
+- Unity WebGL build files in the `Build` directory
+
+### Start the Container
+
+```bash
+docker-compose up -d
+```
+
+#### Access the Application
+Open your browser and navigate to:
+```
+http://localhost:8080
+```
+
+#### Stopping the Container
+
+```bash
+docker-compose down
+```
+
+## Development Environment Setup
 
 ### Prerequisites
 
@@ -20,8 +57,7 @@ You can access the live application here: [Orbital Watch](https://orbital-watch-
 
 ### Configuration
 
-1. Clone the repository
-2. Create or update the `.config.env` file with your specific paths:
+Create or update the `.config.env` file with your specific paths:
 
 ```
 UNITY_PATH='[Path to your Unity executable]'
@@ -73,7 +109,7 @@ This project includes a script that handles both building from Unity and deployi
 
 ## Vercel Configuration
 
-For successful deployment to Vercel:
+This project is set up for deployment with Vercel, but any static hosting service can be used as an alternative. For Vercel specifically:
 
 1. Install the Vercel CLI: `npm i -g vercel`
 2. Log in to Vercel: `vercel login`
@@ -87,8 +123,10 @@ For successful deployment to Vercel:
 - `js/app.js` - JavaScript for loading and configuring the Unity WebGL content, handles canvas setup and Unity instance creation
 - `css/style.css` - Stylesheet for the web interface with custom styling for both landing page and simulator
 - `Build/` - Contains the Unity WebGL build files (webgl-dist.* files)
+- `StreamingAssets/` - Resources loaded at runtime by the Unity application
 - `TemplateData/` - Contains Unity WebGL template assets like loading bar styles, logos, and other UI elements
 - `build-and-deploy.sh` - Bash script to automate building from Unity and deployment to Vercel
+- `docker-compose.yml` - Configuration for running the application locally using Docker and Nginx
 - `vercel.json` - Configuration file for Vercel deployment settings (routes, headers, etc.)
 - `.config.env` - Environment configuration file with paths to Unity executable and Unity project location
 
