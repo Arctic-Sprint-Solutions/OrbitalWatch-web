@@ -14,54 +14,15 @@ You can access the live application here: [Orbital Watch](https://orbital-watch-
 
 ### Clone and Setup
 
-1. Make sure Git LFS is installed and initialized
-   ```bash
-   # Install Git LFS if not already installed
-   # macOS (with Homebrew): brew install git-lfs
-   # Windows: Download from https://git-lfs.github.com/
-   # Ubuntu: sudo apt install git-lfs
-   
-   git lfs install
-   ```
-
-2. Clone the repository
+1. Clone the repository
    ```bash
    git clone https://github.com/yourusername/orbital-watch-web.git
    cd orbital-watch-web
    ```
 
-3. Pull LFS files
-   ```bash
-   git lfs pull
-   ```
+2. **Important Note**: The `Build` and `StreamingAssets` directories are not included in the GitHub repository. You must generate these files using the Unity build process before running the application locally (see Development section for build instructions).
 
-4. Ensure you have the Unity WebGL build files in the `Build` directory (see Development section for build instructions)
-
-## Running Locally with Docker
-
-The project includes a simple `docker-compose.yml` file with a basic Nginx configuration to serve the application locally in a Docker container.
-
-### Prerequisites
-- [Docker](https://www.docker.com/products/docker-desktop/) installed on your system
-- Unity WebGL build files in the `Build` directory
-
-### Start the Container
-
-```bash
-docker-compose up -d
-```
-
-#### Access the Application
-Open your browser and navigate to:
-```
-http://localhost:8080
-```
-
-#### Stopping the Container
-
-```bash
-docker-compose down
-```
+3. **Unity Project**: The Unity project used to generate the WebGL build is available at [collision-simulator](https://github.com/Arctic-Sprint-Solutions/collision-simulator). You will need Git LFS to properly clone that repository.
 
 ## Development Environment Setup
 
@@ -123,6 +84,38 @@ This project includes a script that handles both building from Unity and deployi
 3. Copy the contents of the WebGL build's `Build` folder to the `Build` folder in this project
 4. Deploy to Vercel using `vercel --prod`
 
+## Running Locally with Docker
+
+The project includes a simple `docker-compose.yml` file with a basic Nginx configuration to serve the application locally in a Docker container.
+
+### Prerequisites
+- [Docker](https://www.docker.com/products/docker-desktop/) installed on your system
+- **Required**: Unity WebGL build files in the `Build` directory (must be generated first)
+
+### Generate Build Files Before Running
+You must complete one of these options before running locally:
+
+1. Run the build script: `./build-and-deploy.sh --no-deploy` (requires Unity installation)
+2. Build manually from Unity and copy files to the `Build` directory
+
+### Start the Container
+
+```bash
+docker-compose up -d
+```
+
+#### Access the Application
+Open your browser and navigate to:
+```
+http://localhost:8080
+```
+
+#### Stopping the Container
+
+```bash
+docker-compose down
+```
+
 ## Vercel Configuration
 
 This project is set up for deployment with Vercel, but any static hosting service can be used as an alternative. For Vercel specifically:
@@ -138,13 +131,14 @@ This project is set up for deployment with Vercel, but any static hosting servic
 - `unity-app.html` - The Unity WebGL application page that embeds the simulation
 - `js/app.js` - JavaScript for loading and configuring the Unity WebGL content, handles canvas setup and Unity instance creation
 - `css/style.css` - Stylesheet for the web interface with custom styling for both landing page and simulator
-- `Build/` - Contains the Unity WebGL build files (webgl-dist.* files)
-- `StreamingAssets/` - Resources loaded at runtime by the Unity application
 - `TemplateData/` - Contains Unity WebGL template assets like loading bar styles, logos, and other UI elements
 - `build-and-deploy.sh` - Bash script to automate building from Unity and deployment to Vercel
 - `docker-compose.yml` - Configuration for running the application locally using Docker and Nginx
 - `vercel.json` - Configuration file for Vercel deployment settings (routes, headers, etc.)
-- `.config.env` - Environment configuration file with paths to Unity executable and Unity project location
+- *Not included in repository:*
+  - `.config.env` - Environment configuration file with paths to Unity executable and Unity project location
+  - `Build/` - Contains the Unity WebGL build files (webgl-dist.* files)
+  - `StreamingAssets/` - Resources loaded at runtime by the Unity application
 
 ## Unity WebGL Integration
 
@@ -168,21 +162,31 @@ When first setting up the project, you need to run `vercel link` to create this 
 
 ### Build Process Automation
 
-The `build-and-deploy.sh` script provides several features:
+The `build-and-deploy.sh` script simplifies the workflow:
 
-- Automated Unity builds using command-line parameters
-- Copying only the necessary build files to the web project
-- Configurable paths through `.config.env`
-- Optional deployment to Vercel production environment
+- **Complete process**: Build from Unity and deploy to Vercel in one step
+  ```bash
+  ./build-and-deploy.sh
+  ```
+- **Build only**: Generate build files without deploying
+  ```bash
+  ./build-and-deploy.sh --no-deploy
+  ```
+- **Deploy only**: Deploy existing build files to Vercel
+  ```bash
+  ./build-and-deploy.sh --deploy-only
+  ```
 
-## Development Notes
+## Repository Management
 
-- The `app.js` file assumes the Unity WebGL build files are named with the `webgl-dist` prefix
-- Any changes to the Unity project require a new build and deployment
-- For local testing, you can use a simple HTTP server to serve the files
+### Build Files and GitHub
+- Build files (`Build/` and `StreamingAssets/`) are not stored in the GitHub repository
+- These files must be generated using the Unity build process before running locally
+- For local testing after generating build files, you can use Docker or a simple HTTP server (like the "Live Server" extension for VS Code)
 
 ## Troubleshooting
 
+- **Missing Build Files**: Generate them using the build script or Unity editor before attempting to run
 - **Build script fails**: Check `build.log` for Unity build errors
 - **Vercel deployment issues**: Ensure `.vercel` directory is properly configured
 - **Unity WebGL not loading**: Verify file paths in `app.js` match your actual build filenames
