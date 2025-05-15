@@ -14,12 +14,28 @@ You can access the live application here: [Orbital Watch](https://orbital-watch-
 
 ### Clone and Setup
 
-1. Clone the repository
+1. Make sure Git LFS is installed and initialized
+   ```bash
+   # Install Git LFS if not already installed
+   # macOS (with Homebrew): brew install git-lfs
+   # Windows: Download from https://git-lfs.github.com/
+   # Ubuntu: sudo apt install git-lfs
+   
+   git lfs install
+   ```
+
+2. Clone the repository
    ```bash
    git clone https://github.com/yourusername/orbital-watch-web.git
    cd orbital-watch-web
    ```
-2. Ensure you have the Unity WebGL build files in the `Build` directory (see Development section for build instructions)
+
+3. Pull LFS files
+   ```bash
+   git lfs pull
+   ```
+
+4. Ensure you have the Unity WebGL build files in the `Build` directory (see Development section for build instructions)
 
 ## Running Locally with Docker
 
